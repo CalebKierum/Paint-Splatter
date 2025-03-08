@@ -6,6 +6,8 @@ This is a first attempt at the simulation of watercolors vaguely based on "Real-
 
 This project generates water-color paint splatters procedurally then simulates the mixing and drying of paint colors.
 
+See project files for a basic Metal Tutorial and a guide on how this effect is created.
+
 ## Generation of paint splatters
 
 The geometry of the paint splatter consists of procedurally generated components.
@@ -42,5 +44,9 @@ The alpha channel is used to store the water level/wettness of the paint.
 ## Video
 
 This simulation was originally made to be a Playground. However due to the buggy nature of Playgrounds it has been ported to just an iOS app.
+
+
+https://github.com/user-attachments/assets/506ac093-7130-4f78-99ad-b58804f2d0d5
+
 
 [![](http://img.youtube.com/vi/pRubVq0Fulc/0.jpg)](http://www.youtube.com/watch?v=pRubVq0Fulc "")
