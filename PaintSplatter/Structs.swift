@@ -12,16 +12,16 @@ import UIKit
 public typealias Color = UIColor
 public typealias Point = CGPoint
 
-extension Point {
-    public static func += (left: inout Point, right: Point) {
+public extension Point {
+    static func += (left: inout Point, right: Point) {
         left.x += right.x
         left.y += right.y
     }
-    public mutating func rotate(_ by: CGFloat) {
+
+    mutating func rotate(_ by: CGFloat) {
         let sx = x
         let sy = y
         x = sx * cos(by) - sy * sin(by)
         y = sx * sin(by) + sy * cos(by)
     }
-    
 }

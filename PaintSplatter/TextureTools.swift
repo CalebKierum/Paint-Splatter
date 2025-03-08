@@ -6,30 +6,29 @@
 //  Copyright © 2019 Caleb Kierum. All rights reserved.
 //
 
+import CoreImage
 import Foundation
 import Metal
-import CoreImage
 import MetalKit
-import UIKit
 import MetalPerformanceShaders
+import UIKit
 
-//Some tools for creating textures
+// Some tools for creating textures
 public class TextureTools {
-    
-    //Creates a square texture of the dimensions
+    // Creates a square texture of the dimensions
     public static func createTexture(ofSize size: CGFloat) -> MTLTexture {
-        if (metalState.sharedDevice == nil) {
+        if metalState.sharedDevice == nil {
             fatalError("Must create a metal device before creating a texture")
         }
         
-        //Describve it with its hight and turn of mipmaps
+        // Describve it with its hight and turn of mipmaps
         let descriptor = MTLTextureDescriptor.texture2DDescriptor(pixelFormat: .rgba8Unorm, width: Int(size), height: Int(size), mipmapped: false)
         
-        //Allow it to be used in all scenarios
-        let usage:MTLTextureUsage = [MTLTextureUsage.shaderWrite, MTLTextureUsage.shaderRead, MTLTextureUsage.renderTarget]
+        // Allow it to be used in all scenarios
+        let usage: MTLTextureUsage = [MTLTextureUsage.shaderWrite, MTLTextureUsage.shaderRead, MTLTextureUsage.renderTarget]
         descriptor.usage = usage
         
-        //Create it
+        // Create it
         return ensure(metalState.sharedDevice?.makeTexture(descriptor: descriptor))
     }
     
@@ -38,14 +37,15 @@ public class TextureTools {
         
         let textureLoaderOptions = [
             MTKTextureLoader.Option.textureUsage: NSNumber(value: MTLTextureUsage.shaderRead.rawValue),
-            MTKTextureLoader.Option.textureStorageMode: NSNumber(value: MTLStorageMode.`private`.rawValue)
+            MTKTextureLoader.Option.textureStorageMode: NSNumber(value: MTLStorageMode.private.rawValue)
         ]
         
-        return ensure(try textureLoader.newTexture(name: named,
-                                            scaleFactor: 1.0,
-                                            bundle: nil,
-                                            options: textureLoaderOptions))
+        return try ensure(textureLoader.newTexture(name: named,
+                                                   scaleFactor: 1.0,
+                                                   bundle: nil,
+                                                   options: textureLoaderOptions))
     }
+
     public static func loadTexture(image: UIImage) -> MTLTexture {
         let textureLoader = MTKTextureLoader(device: metalState.sharedDevice!)
         
@@ -54,6 +54,6 @@ public class TextureTools {
             MTKTextureLoader.Option.SRGB: false
         ]
         
-        return ensure(try textureLoader.newTexture(cgImage: image.cgImage!, options: options))
+        return try ensure(textureLoader.newTexture(cgImage: image.cgImage!, options: options))
     }
 }
